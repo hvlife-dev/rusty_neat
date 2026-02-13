@@ -1,5 +1,5 @@
 use std::fmt;
-use rand::Rng;
+use rand::prelude::*;
 use serde::{Deserialize, Serialize};
 use crate::NodeKey;
 

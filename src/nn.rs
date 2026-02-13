@@ -1,5 +1,6 @@
 use itertools::Itertools;
-use rand::{seq::IteratorRandom, Rng};
+use rand::seq::IteratorRandom;
+use rand::prelude::*;
 use rand_distr::{weighted::WeightedIndex, Distribution, Normal};
 use serde::{Serialize, Deserialize};
 use serde_with::serde_as;

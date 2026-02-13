@@ -47,7 +47,8 @@ There is also ecosystem simulation that uses continous variant, but it's current
 ## Exaple usage:
 
 ```rust
-    use std::fs::File;
+    #[cfg(feature = "visu")]
+    use std::fs;
     use std::io::Write;
     
     use rusty_neat::{NN, ActFunc, visu};
@@ -60,6 +61,7 @@ There is also ecosystem simulation that uses continous variant, but it's current
             &[ActFunc::HyperbolicTangent, ActFunc::SELU, ActFunc::Sigmoid] );
         nn.set_chances(&[0, 20, 5, 10, 3, 0, 0, 0]);
         let mut handler = NeatIntermittent::new(&nn, size, 5);
+        fs::create_dir("out");
     
         handler.species_amount = 2;
     
@@ -76,10 +78,10 @@ There is also ecosystem simulation that uses continous variant, but it's current
             println!("g:{}", i)
         }
         handler.agents.iter().enumerate().for_each(|(i, a)| {
-            visu(a, Some(&format!("{}.svg", i)));
-            a.save(&format!("{}.toml", i));
-            let mut file = File::create(
-                &("nn".to_string() + &i.to_string() + ".toml")).unwrap();
+            visu(a, Some(&format!("out/{}.svg", i)));
+            a.save(&format!("out/{}.toml", i));
+            let mut file = fs::File::create(
+                &("out/nn".to_string() + &i.to_string() + ".toml")).unwrap();
             file.write_all(format!("{:?}", a).as_bytes()).unwrap();
         } );
     
@@ -93,10 +95,10 @@ There is also ecosystem simulation that uses continous variant, but it's current
         }
     
         handler.agents.iter().enumerate().for_each(|(i, a)| {
-            visu(a, Some(&format!("{}.svg", i)));
-            visu(a, Some(&format!("{}.png", i)));
-            let mut file = File::create(
-                &("nn".to_string() + &i.to_string() + "_pruned.toml")).unwrap();
+            visu(a, Some(&format!("out/{}.svg", i)));
+            visu(a, Some(&format!("out/{}.png", i)));
+            let mut file = fs::File::create(
+                &("out/nn".to_string() + &i.to_string() + "_pruned.toml")).unwrap();
             file.write_all(format!("{:?}", a).as_bytes()).unwrap();
         } );
     }
@@ -105,15 +107,13 @@ There is also ecosystem simulation that uses continous variant, but it's current
 
 Possible mutations it's order, and default chances:
 
-```rust
-    200 => modify one of connections weight,
-    20 => add new random connection,
-    5 => add new random node,
-    10 => add gating node to connection,
-    3 => romove gating node from connection,
-    0 => connection_enable,
-    0 => connection_disable,
-    0 => change one of nodes activation function,
-```
+* 200 => modify one of connections weight,
+* 20 => add new random connection,
+* 5 => add new random node,
+* 10 => add gating node to connection,
+* 3 => romove gating node from connection,
+* 0 => connection_enable,
+* 0 => connection_disable,
+* 0 => change one of nodes activation function,
 
 Struct NN supports serialization and deserialization through serde.

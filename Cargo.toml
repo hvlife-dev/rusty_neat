@@ -1,6 +1,6 @@
 [package]
 name = "rusty_neat"
-version = "0.2.3"
+version = "0.2.4"
 edition = "2024"
 description = "Pretty good NEAT implementation"
 readme = "README.md"
@@ -12,15 +12,15 @@ categories = ["mathematics"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-rayon = "^1.10"
+rayon = "^1.11"
 itertools = "^0.14"
 
-rand = "^0.9"
-rand_distr = "^0.5"
+rand = "^0.10"
+rand_distr = "^0.6"
 
-serde_with = "^3.12"
+serde_with = "^3.16"
 serde = { version = "^1.0", features = ["derive"] }
-toml = "^0.8"
+toml = "^1.0"
 
 simplesvg = { version = "^0.4", optional = true }
 usvg = { version = "^0.37", optional = true }

@@ -1,7 +1,5 @@
 #![doc = include_str!("../README.md")]
 
-#![feature(extract_if)]
-
 mod connection;
 mod node;
 mod nn;
